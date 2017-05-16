@@ -235,7 +235,7 @@
 	"cv": {
 		"name": "Curriculum Vitae",
 		"title": "Thomas Newbolt, Curriculum Vitae",
-		"body": "1951 Born in London<br>1970-74 Camberwell School or Art and Crafts, London<br>1974-75 Italian Government Scholarship, Florence Italy<br>1979-81 Fellow-Commoner in Creative Arts, Trinity College, Cambridge<br>1981-83 Harkness Fellow, University of Virginia / University of Wisconsin<br>2001 Jerwood Commission, British Medical Association, Edinburgh<br>TEACHING<br>1975-76 / 78-81 Camberwell School of Art and Crafts, London<br>1985-2000 Anglia Polytechnic University<br>2000 The Prince of Wales Drawing Studio, London<br>SELECTED ONE PERSON EXHIBITIONS<br>1986, 88, 91, 97, 2002	Browse and Darby, London<br>1988 Tatistcheff, New York, USA<br>2000 Grosvenor Gallery, London in association with Mary Ann Prior<br>SELECTED GROUP EXHIBITIONS<br>1977-2002 Browse and Darby<br>1983 Forum Gallery, New York, USA<br>1984 Tatistcheff, New York, USA<br>1988 Tatistcheff, Los Angeles, USA<br>1992 Tatistcheff, New York, USA<br>1995 Belloc Lowndes, Chicago, USA<br>1996 Discerning Eye, Mall Galleries, London, Prize Winner<br>PUBLIC COLLECTIONS<br>Arthur Anderson<br>Lillian Browse<br>Linklaters Paine<br>Trinity College, Cambridge<br>New Hall, Cambridge<br>Bank of England<br>Churchill College, Cambridge<br>Unilever<br>Pfizer<br>Dayton Art Institute, Dayton Ohio, USA<br>The Bank of America"
+		"body": "1951 Born in London<br>1970-74 Camberwell School or Art and Crafts, London<br>1974-75 Italian Government Scholarship, Florence Italy<br>1979-81 Fellow-Commoner in Creative Arts, Trinity College, Cambridge<br>1981-83 Harkness Fellow, University of Virginia / University of Wisconsin<br>2001 Jerwood Commission, British Medical Association, Edinburgh<br>TEACHING<br>1975-76 / 78-81 Camberwell School of Art and Crafts, London<br>1985-2000 Anglia Polytechnic University<br>2000 The Prince of Wales Drawing Studio, London<br>SELECTED ONE PERSON EXHIBITIONS<br>1986, 88, 91, 97, 2002 Browse and Darby, London<br>1988 Tatistcheff, New York, USA<br>2000 Grosvenor Gallery, London in association with Mary Ann Prior<br>SELECTED GROUP EXHIBITIONS<br>1977-2002 Browse and Darby<br>1983 Forum Gallery, New York, USA<br>1984 Tatistcheff, New York, USA<br>1988 Tatistcheff, Los Angeles, USA<br>1992 Tatistcheff, New York, USA<br>1995 Belloc Lowndes, Chicago, USA<br>1996 Discerning Eye, Mall Galleries, London, Prize Winner<br>PUBLIC COLLECTIONS<br>Arthur Anderson<br>Lillian Browse<br>Linklaters Paine<br>Trinity College, Cambridge<br>New Hall, Cambridge<br>Bank of England<br>Churchill College, Cambridge<br>Unilever<br>Pfizer<br>Dayton Art Institute, Dayton Ohio, USA<br>The Bank of America"
 	},
 	"films": {
 		"name": "Films",
@@ -617,7 +617,7 @@
 								]
 							}
 						]
-					}
+					},
 					{
 						"slug": "pencil",
 						"name": "Pencil",
@@ -650,7 +650,7 @@
 							}
 						]
 					}
-				],
+				]
 			},
 			{
 				"slug": "etchings",
@@ -1023,7 +1023,7 @@
 								"info": "5\" x 6\", oil on canvas, 1988"
 							}
 						]
-					}
+					},
 					{
 						"slug": "1992",
 						"name": "1992",
