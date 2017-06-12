@@ -1,6 +1,7 @@
 # Site-specific
 static/**/*.jpg
 static/**/*.mp3
+static/**/*.mp4
 static/**/*.mov
 static/**/*.pdf
 static/**/*.wav

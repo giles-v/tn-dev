@@ -1,8 +1,11 @@
 export { default as Audio } from './Audio';
 export { default as Background } from './Background';
 export { default as BackgroundLayer } from './BackgroundLayer';
+export { default as ConnectedAudio } from './ConnectedAudio';
+export { default as ConnectedNav } from './ConnectedNav';
+export { default as ConnectedNavItem } from './ConnectedNavItem';
 export { default as Header } from './Header';
-export { default as LoadXML } from './LoadXML';
+export { default as Loader } from './Loader';
 export { default as Nav } from './Nav';
 export { default as NavItem } from './NavItem';
 export { default as TypedButton } from './TypedButton';

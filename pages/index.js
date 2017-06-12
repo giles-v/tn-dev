@@ -1,16 +1,27 @@
 import Head from 'next/head';
-import React from 'react'
+import React from 'react';
+import { applyMiddleware, createStore } from 'redux';
+import { Provider } from 'react-redux';
 import {
-  Audio,
   Background,
+  Audio,
+  ConnectedAudio,
+  ConnectedNav,
   Header,
-  LoadXML,
+  Loader,
   TypedButton,
   TypedLine,
   TypedLink,
   TypedNav,
   NavItem
 } from '../components';
+import logger from 'redux-logger';
+import { reducers } from '../reducers';
+
+const store = createStore(
+  reducers,
+  applyMiddleware(logger)
+);
 
 export default class extends React.Component {
 
@@ -26,56 +37,46 @@ export default class extends React.Component {
     this.setState({
       headComplete: true
     });
+    console.log(" -- head complete");
+  }
+
+  getRandomItem = (arr) => {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  staticUrl = (path) => {
+    return '/static/' + path;
   }
 
   render() {
     return (
-      <div>
-        <Header />
-        <h1>
-          <TypedLine onComplete={this.onRenderHeadComplete}>Thomas Newbolt</TypedLine>
-        </h1>
-        <LoadXML>{
-          (xml) => {
-            (xml && this.state.headComplete) ? (
-              <div>
-                <TypedNav>
-                  <NavItem>
-                    <TypedButton>Number One</TypedButton>
-                    <TypedNav>
-                      <NavItem><TypedLink href="/bat1">One-One</TypedLink></NavItem>
-                      <NavItem><TypedLink href="/bat2">One-Two</TypedLink></NavItem>
-                      <NavItem><TypedLink href="/bat3">One-Three</TypedLink></NavItem>
-                    </TypedNav>
-                  </NavItem>
-                  <NavItem><TypedLink href="/foo">Two</TypedLink></NavItem>
-                  <NavItem><TypedLink href="/foo">Three</TypedLink></NavItem>
-                  <NavItem><TypedLink href="/foo">Four</TypedLink></NavItem>
-                  <NavItem><TypedLink href="/foo">five</TypedLink></NavItem>
-                </TypedNav>
-                {this.state.audioEnabled && <Audio src="/static/music/hi/bartok.mp3" />}
-                <Background curr="/static/backdrop_imgs/IMG_8124.jpg" />
-              </div>
-            ) : (
-              <TypedLine>Loading...</TypedLine>
-            );
-          }
-        }</LoadXML>
-      </div>
+      <Provider store={store}>
+        <div>
+          <Header />
+          <h1>
+            <TypedLine onComplete={this.onRenderHeadComplete}>Thomas Newbolt</TypedLine>
+          </h1>
+          <Loader src="/static/site.json">{
+            ({data, err, src}) => {
+              if (this.state.headComplete) {
+                if (err) {
+                  return <TypedLine>Failed to load {src}: {err}</TypedLine>;
+                }
+                if (data) {
+                  return (
+                    <div>
+                      <ConnectedNav data={data} />
+                      <ConnectedAudio src={this.staticUrl(this.getRandomItem(data.music))} />
+                      <Background curr={this.staticUrl(this.getRandomItem(data.backdrops))} />
+                    </div>
+                  );
+                }
+                return <TypedLine>Loading...</TypedLine>;
+              }
+            }
+          }</Loader>
+        </div>
+      </Provider>
     );
   }
 }
-
-/*
-<TypedNav>
-          <Link href="/"><a>Home</a></Link>
-          <Link href="/work">
-            <a>Work</a>
-            <TypedNav>
-              <a href="/work/1993">1993</a>
-              <a href="/work/1999">1999</a>
-            </TypedNav>
-          </Link>
-          <Link href="/about"><a>About</a></Link>
-        </TypedNav>
-        */

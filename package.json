@@ -1,12 +1,17 @@
 {
   "name": "thomasnewbolt.com",
   "version": "1.0.0",
-  "description": "",
+  "description": "Source Code for ThomasNewbolt.com website",
   "main": "index.js",
   "dependencies": {
     "next": "^2.2.0",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-redux": "^5.0.4",
+    "react-router": "^4.1.1",
+    "redux": "^3.6.0",
+    "redux-devtools": "^3.3.2",
+    "redux-logger": "^3.0.6"
   },
   "devDependencies": {},
   "scripts": {

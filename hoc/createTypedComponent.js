@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const LETTER_TYPE_INTERVAL = 20;
+const LETTER_TYPE_INTERVAL = 10;
 const CURSOR_BLINK_INTERVAL = 300;
 
 const createTypedComponent = (Component) => {
@@ -21,7 +21,7 @@ const createTypedComponent = (Component) => {
       delayBeforeStart: 1000
     }
 
-    static displayName = 'HOC_' + Component.name;
+    static displayName = 'Typed(' + Component.name + ')';
 
     constructor(props) {
       super(props);
@@ -41,8 +41,14 @@ const createTypedComponent = (Component) => {
       if (this.props.hasCursor) this.showCursor();
     }
 
+    componentWillUnmount() {
+      clearTimeout(this.startTimeout);
+      clearInterval(this.cursorBlinkInterval);
+      this.stopTyping();
+    }
+
     typeNextLetter = () => {
-      const nextText = this.state.fullText.slice(0, this.state.currentText.length + 1);
+      const nextText = (this.state.fullText) ? this.state.fullText.slice(0, this.state.currentText.length + 1) : this.state.fullText;
       if (nextText === this.state.currentText) {
         this.stopTyping();
         if (this.props.hideCursorOnComplete) {
@@ -88,18 +94,6 @@ const createTypedComponent = (Component) => {
           }
           <span className="cursor" style={{ opacity: this.state.cursorOpacity }} />
           <noscript>{this.props.children}</noscript>
-          <style jsx>{`
-            .cursor {
-              width: .8em;
-              height: 1.6em;
-              display: inline-block;
-              vertical-align: bottom;
-              background: white;
-              position: relative;
-              top: 0;
-              left: .2em;
-            }
-          `}</style>
         </Component>
       );
     }

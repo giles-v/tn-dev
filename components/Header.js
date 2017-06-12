@@ -1,8 +1,7 @@
-
 import React from 'react';
 import Head from 'next/head';
 
-export default class extends React.Component {
+class Header extends React.Component {
 
   render() {
     return (
@@ -49,7 +48,9 @@ export default class extends React.Component {
             color: #fff;
           }
           a:hover .content,
-          button:hover .content {
+          button:hover .content,
+          .selected > a .content,
+          .selected > button .content {
             color: #000;
             background: #fff;
           }
@@ -60,8 +61,7 @@ export default class extends React.Component {
           }
           nav a,
           nav button {
-            float: left;
-            clear: left;
+            display: inline-block;
           }
 
           .component button .content {
@@ -74,16 +74,19 @@ export default class extends React.Component {
           }
 
           .cursor {
-            width: .5em;
-            height: 1em;
+            width: .8em;
+            height: 1.6em;
             display: inline-block;
+            vertical-align: bottom;
             background: white;
             position: relative;
-            left: .1em;
-            top: .1em;
+            top: 0;
+            left: .2em;
           }
         `}</style>
       </Head>
     );
   }
 }
+
+export default Header;

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import TypedLink from './TypedLink';
-// import createTypedComponent from '../hoc/createTypedComponent';
 
 class TypedNav extends React.Component {
   static propTypes = {

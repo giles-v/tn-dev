@@ -5,63 +5,89 @@ import {
   TypedNav
 } from '../components';
 
-const MENU_SPACING = 20;
+const MENU_SPACING = 10;
 const LINE_HEIGHT = 23;
 
-export default class extends React.Component {
+class NavItem extends React.Component {
   static propTypes = {
-    selected: PropTypes.bool,
-    parentNav: PropTypes.element
-  }
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
+    parentNav: PropTypes.element,
+    selections: PropTypes.array
+  };
+
+  static defaultProps = {
+    x: 0,
+    y: 0,
+    selections: []
+  };
 
   constructor(props) {
     super(props);
     this.state = {
-      subnavOpen: false
+      selected: false
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const selected = this.checkSelected(nextProps.selections);
+    if (selected !== this.state.selected) {
+      this.setState({ selected });
     }
   }
 
-  onMenuHandleClick = (e) => {
-    this.setState({
-      subnavOpen: !this.state.subnavOpen
-    });
+  checkSelected(selections = []) {
+    const isSelected = selections.reduce((acc, item) => {
+      return (acc || (this.props.x === item.x && this.props.y === item.y));
+    }, false);
+    console.log("isSelected", isSelected);
+    return isSelected;
   }
 
-  getNextNavPosition = () => {
-    const pos = {};
-    const parentRect = this.props.parentNav.el.getBoundingClientRect();
+  getNavPosition = (childNav, topOffset = 0) => {
+    const pos = { top: 10, left: 200 };
 
-    // find the top level nav, because we'll set vertical position based on
-    // the vertical offset of that.
-    let parent = this.props.parentNav;
-    while (parent.parentNav) parent = parent.parentNav;
-    const topParentRect = parent.el.getBoundingClientRect();
+    // if (this.props.parentNav && this.props.parentNav.style) {
+    //   pos.top = -this.props.parentNav.style.top;
+    // }
 
-    var availableHeight = window.innerHeight - topParentRect.top - MENU_SPACING - (LINE_HEIGHT * this.props.children.length);
+    if (false) {
+      const requiredSpace = LINE_HEIGHT * (childNav.props.children.length + 3);
+      const availableHeight = window.innerHeight - requiredSpace;
+      pos.top += Math.round(availableHeight * Math.random());
+    }
 
-    pos.left = Math.round(parentRect.right + MENU_SPACING);
-    pos.top = Math.round(availableHeight * Math.random());
+    if (this.props.parentNav && this.props.parentNav.el) {
+      const parentRect = this.props.parentNav.el.getBoundingClientRect();
+      pos.left = Math.round(parentRect.width + MENU_SPACING);
+    }
 
     return pos;
   }
 
   render() {
-    // filter out 'TypedNav' children
+    const { x, y, onNavItemClick, delayBeforeStart, onComplete } = this.props;
+    const classNames = ['nav-item'];
+    if (this.state.selected) classNames.push('selected');
     const children = [];
-    React.Children.forEach(this.props.children, (child, index) => {
-      const props = { key: index, delayBeforeStart: this.props.delayBeforeStart, onComplete: this.props.onComplete };
+    React.Children.forEach(this.props.children, (child, key) => {
+      const props = { key, delayBeforeStart, onComplete };
       let include = true;
       const childName = child.displayName || child.type.displayName;
       if (childName.includes('TypedNav')) {
-        if (this.state.subnavOpen) {
-          props.style = this.getNextNavPosition();
+        if (this.state.selected) {
+          console.log(child.props.style);
+          props.style = this.getNavPosition(child, 0);
+          console.log(props.style);
         }
         else {
           include = false;
         }
       }
-      if (childName.includes('TypedButton')) {
-        props.onClick = this.onMenuHandleClick;
+      if (childName.includes('TypedButton') || childName.includes('TypedLink')) {
+        if (!child.props.onClick) {
+          props.onClick = () => onNavItemClick(x, y);
+        }
       }
       if (include) {
         children.push(React.cloneElement(child, props));
@@ -69,9 +95,11 @@ export default class extends React.Component {
     });
 
     return (
-      <div className="nav-item">
+      <div className={classNames.join(' ')}>
         {children}
       </div>
     );
   }
 }
+
+export default NavItem;
